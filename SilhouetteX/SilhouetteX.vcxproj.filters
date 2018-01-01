@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{58d05eda-e46b-4c29-ba6e-d0a2b344ee3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{5b63eef0-f2fc-4afe-8299-ff11c31aaa0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XSDX">
+      <UniqueIdentifier>{01236343-5c45-42af-a04a-ffc2f8009448}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XSDX\Source Files">
+      <UniqueIdentifier>{41924030-0727-42e8-94cc-74a8efd4fcd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XSDX\Header Files">
+      <UniqueIdentifier>{282c3e90-7333-41d2-afdb-77027a933ae9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SilhouetteX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DirectXHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDX\XSDXBuffer.h">
+      <Filter>XSDX\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDX\XSDXShader.h">
+      <Filter>XSDX\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDX\XSDXShaderCommon.h">
+      <Filter>XSDX\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDX\XSDXSharedConst.h">
+      <Filter>XSDX\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDX\XSDXState.h">
+      <Filter>XSDX\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDX\XSDXType.h">
+      <Filter>XSDX\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Silhouette.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SilhouetteX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDX\XSDXBuffer.cpp">
+      <Filter>XSDX\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDX\XSDXShader.cpp">
+      <Filter>XSDX\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDX\XSDXState.cpp">
+      <Filter>XSDX\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Silhouette.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SilhouetteX.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SilhouetteX.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VSBasePass.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PSSimple.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="GSSilhouette.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="HSSilhouette.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="DSSilhouette.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
