@@ -47,7 +47,8 @@ enum ButtonID
 	IDC_CHANGEDEVICE,
 	IDC_TOGGLEWARP,
 	IDC_RENDER_GS = 5,
-	IDC_RENDER_TESS
+	IDC_RENDER_TESS,
+	IDC_RENDER_STYLIZED
 };
 
 uint8_t							g_uRenderMode = IDC_RENDER_GS;
@@ -147,9 +148,11 @@ void InitApp()
 	auto iY = -670;
 	g_SampleUI.AddRadioButton(IDC_RENDER_GS, 0u, L"Simple silhouette by geometry shader", iX, iY += 26, 150, 22);
 	g_SampleUI.AddRadioButton(IDC_RENDER_TESS, 0u, L"Simple silhouette by tessellation", iX, iY += 26, 150, 22);
+	g_SampleUI.AddRadioButton(IDC_RENDER_STYLIZED, 0u, L"Stylized silhouette by tessellation", iX, iY += 26, 150, 22);
 	g_SampleUI.GetRadioButton(IDC_RENDER_GS)->SetChecked(true);
 	g_SampleUI.GetRadioButton(IDC_RENDER_GS)->SetTextColor(0);
 	g_SampleUI.GetRadioButton(IDC_RENDER_TESS)->SetTextColor(0);
+	g_SampleUI.GetRadioButton(IDC_RENDER_STYLIZED)->SetTextColor(0);
 }
 
 //--------------------------------------------------------------------------------------
@@ -276,6 +279,7 @@ void CALLBACK OnGUIEvent(UINT nEvent, int nControlID, CDXUTControl* pControl, vo
 		// Standard DXUT controls
 	case IDC_RENDER_GS:
 	case IDC_RENDER_TESS:
+	case IDC_RENDER_STYLIZED:
 		g_uRenderMode = nControlID;
 		break;
 	}
@@ -310,9 +314,12 @@ HRESULT CALLBACK OnD3D11CreateDevice(ID3D11Device* pd3dDevice, const DXGI_SURFAC
 
 	const auto loadVSTask = g_pShader->CreateVertexShader(L"VSBasePass.cso", Silhouette::VS_BASEPASS);
 	auto loadHSTask = g_pShader->CreateHullShader(L"HSSilhouette.cso", Silhouette::HS_SILHOUETTE);
-	auto loadDSTask = g_pShader->CreateDomainShader(L"DSSilhouette.cso", Silhouette::DS_SILHOUETTE);
+	loadHSTask = loadHSTask && g_pShader->CreateHullShader(L"HSSilhouetteTess.cso", Silhouette::HS_SILHOUETTE_TESS);
+	const auto loadDSTask = g_pShader->CreateDomainShader(L"DSSilhouette.cso", Silhouette::DS_SILHOUETTE);
 	auto loadGSTask = g_pShader->CreateGeometryShader(L"GSSilhouette.cso", Silhouette::GS_SILHOUETTE);
+	loadGSTask = loadGSTask && g_pShader->CreateGeometryShader(L"GSParticle.cso", Silhouette::GS_PARTICLE);
 	auto loadPSTask = g_pShader->CreatePixelShader(L"PSSimple.cso", Silhouette::PS_SIMPLE);
+	loadPSTask = loadPSTask && g_pShader->CreatePixelShader(L"PSGauss.cso", Silhouette::PS_GAUSS);
 
 	const auto createShaderTask = loadVSTask && loadHSTask && loadDSTask && loadGSTask && loadPSTask;
 	
@@ -397,6 +404,9 @@ void CALLBACK OnD3D11FrameRender(ID3D11Device* pd3dDevice, ID3D11DeviceContext* 
 	{
 	case IDC_RENDER_TESS:
 		g_pSilhouette->Render(Silhouette::RENDER_TESS);
+		break;
+	case IDC_RENDER_STYLIZED:
+		g_pSilhouette->Render(Silhouette::RENDER_STYLIZED);
 		break;
 	default:
 		g_pSilhouette->Render();

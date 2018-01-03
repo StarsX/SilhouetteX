@@ -3,6 +3,7 @@ struct DSOut
 	float4	Pos		: SV_POSITION;
 	float3	WSPos	: POSWORLD;
 	float3	Nrm		: NORMAL;
+	float4	Color	: COLOR;
 };
 
 // Output control point
@@ -35,6 +36,7 @@ DSOut main(
 	output.Nrm = lerp(patch[0].Nrm, patch[1].Nrm, domain);
 
 	output.Pos.z -= Z_BIAS;
+	output.Color = float4(1.0, 0.0.xx, 1.0);
 
 	return output;
 }

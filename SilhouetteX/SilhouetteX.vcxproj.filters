@@ -125,5 +125,14 @@
     <FxCompile Include="DSSilhouette.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="HSSilhouetteTess.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="GSParticle.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PSGauss.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

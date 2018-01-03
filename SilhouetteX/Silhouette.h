@@ -10,7 +10,8 @@ public:
 	enum RenderMode
 	{
 		RENDER_GS,
-		RENDER_TESS
+		RENDER_TESS,
+		RENDER_STYLIZED
 	};
 
 	enum VertexShaderID : uint32_t
@@ -20,7 +21,8 @@ public:
 
 	enum HullShaderID : uint32_t
 	{
-		HS_SILHOUETTE
+		HS_SILHOUETTE,
+		HS_SILHOUETTE_TESS
 	};
 
 	enum DomainShaderID : uint32_t
@@ -30,12 +32,14 @@ public:
 
 	enum GeometryShaderID : uint32_t
 	{
-		GS_SILHOUETTE
+		GS_SILHOUETTE,
+		GS_PARTICLE
 	};
 
 	enum PixelShaderID : uint32_t
 	{
-		PS_SIMPLE
+		PS_SIMPLE,
+		PS_GAUSS
 	};
 
 	Silhouette(const XSDX::CPDXDevice &pDXDevice, const XSDX::spShader &pShader, const XSDX::spState &pState);
@@ -69,6 +73,7 @@ protected:
 	void renderDepth();
 	void renderGS();
 	void renderTess();
+	void renderStylized();
 
 	CBMatrices						m_cbMatrices;
 	CBPerFrame						m_cbPerFrame;

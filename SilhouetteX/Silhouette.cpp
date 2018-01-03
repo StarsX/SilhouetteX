@@ -43,8 +43,8 @@ void Silhouette::UpdateFrame(DirectX::CXMVECTOR vEyePt, DirectX::CXMMATRIX mView
 
 	XMStoreFloat4(&m_cbPerFrame.vEyePos, vEyePt);
 
-	m_pDXContext->UpdateSubresource(m_pCBMatrices.Get(), 0u, nullptr, &m_cbMatrices, 0u, 0u);
-	m_pDXContext->UpdateSubresource(m_pCBPerFrame.Get(), 0u, nullptr, &m_cbPerFrame, 0u, 0u);
+	if (m_pCBMatrices) m_pDXContext->UpdateSubresource(m_pCBMatrices.Get(), 0u, nullptr, &m_cbMatrices, 0u, 0u);
+	if (m_pCBPerFrame) m_pDXContext->UpdateSubresource(m_pCBPerFrame.Get(), 0u, nullptr, &m_cbPerFrame, 0u, 0u);
 }
 
 void Silhouette::Render(RenderMode renderMode)
@@ -55,6 +55,9 @@ void Silhouette::Render(RenderMode renderMode)
 	{
 	case RENDER_TESS:
 		renderTess();
+		break;
+	case RENDER_STYLIZED:
+		renderStylized();
 		break;
 	default:
 		renderGS();
@@ -164,6 +167,30 @@ void Silhouette::renderTess()
 
 	m_pDXContext->DrawIndexed(m_uNumIndices, 0u, 0u);
 
+	m_pDXContext->DSSetShader(nullptr, nullptr, 0u);
+	m_pDXContext->HSSetShader(nullptr, nullptr, 0u);
+}
+
+void Silhouette::renderStylized()
+{
+	const auto uOffset = 0u;
+	const LPDXBuffer cbs[] = { m_pCBMatrices.Get(), m_pCBPerFrame.Get() };
+	m_pDXContext->VSSetConstantBuffers(0u, 2u, cbs);
+
+	m_pDXContext->IASetInputLayout(m_pVertexLayout.Get());
+	m_pDXContext->IASetVertexBuffers(0u, 1u, m_pVB.GetAddressOf(), &m_uVertexStride, &uOffset);
+	m_pDXContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0u);
+	m_pDXContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+
+	m_pDXContext->VSSetShader(m_pShader->GetVertexShader(VS_BASEPASS).Get(), nullptr, 0u);
+	m_pDXContext->HSSetShader(m_pShader->GetHullShader(HS_SILHOUETTE_TESS).Get(), nullptr, 0u);
+	m_pDXContext->DSSetShader(m_pShader->GetDomainShader(DS_SILHOUETTE).Get(), nullptr, 0u);
+	m_pDXContext->GSSetShader(m_pShader->GetGeometryShader(GS_PARTICLE).Get(), nullptr, 0u);
+	m_pDXContext->PSSetShader(m_pShader->GetPixelShader(PS_GAUSS).Get(), nullptr, 0u);
+
+	m_pDXContext->DrawIndexed(m_uNumIndices, 0u, 0u);
+
+	m_pDXContext->GSSetShader(nullptr, nullptr, 0u);
 	m_pDXContext->DSSetShader(nullptr, nullptr, 0u);
 	m_pDXContext->HSSetShader(nullptr, nullptr, 0u);
 }

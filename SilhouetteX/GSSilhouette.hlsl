@@ -11,6 +11,7 @@ struct GSOut
 	float4	Pos		: SV_POSITION;
 	float3	WSPos	: POSWORLD;
 	float3	Nrm		: NORMAL;
+	float4	Color	: COLOR;
 };
 
 #define Z_BIAS	0.02
@@ -45,6 +46,8 @@ void main(triangle VSOut input[3], inout LineStream<GSOut> output)
 	{
 		v[0].Pos.z -= Z_BIAS;
 		v[1].Pos.z -= Z_BIAS;
+		v[0].Color = float4(0.0.xx, 1.0.xx);
+		v[1].Color = float4(0.0.xx, 1.0.xx);
 		output.Append(v[0]);
 		output.Append(v[1]);
 		output.RestartStrip();
