@@ -14,7 +14,7 @@ struct GSOut
 	float4	Color	: COLOR;
 };
 
-#define Z_BIAS	0.02
+#define Z_BIAS	0.5
 
 // calculating facing of a triangle relative to eye
 bool silhouette(VSOut v1, VSOut v2, inout GSOut v)
@@ -44,8 +44,8 @@ void main(triangle VSOut input[3], inout LineStream<GSOut> output)
 
 	if (c > 0)
 	{
-		v[0].Pos.z -= Z_BIAS;
-		v[1].Pos.z -= Z_BIAS;
+		v[0].Pos.z -= Z_BIAS * (1.0 - v[0].Pos.z / v[0].Pos.w);
+		v[1].Pos.z -= Z_BIAS * (1.0 - v[1].Pos.z / v[1].Pos.w);
 		v[0].Color = float4(0.0.xx, 1.0.xx);
 		v[1].Color = float4(0.0.xx, 1.0.xx);
 		output.Append(v[0]);

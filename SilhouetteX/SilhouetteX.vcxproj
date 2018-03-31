@@ -23,7 +23,7 @@
     <ProjectGuid>{C5A2D639-4102-4E7F-BD93-BA4962AF7714}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SilhouetteX</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -89,16 +89,20 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)XSDX\;$(DXUT_DIR)Optional;$(DXUT_DIR)Core</AdditionalIncludeDirectories>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(DXUT_DIR)Optional\Bin\Win32\Debug;$(DXUT_DIR)Core\Bin\Win32\Debug</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y "$(OutDir)*.cso" "$(SolutionDir)Bin"
-COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
+      <Command>COPY /Y "$(OutDir)*.cso" "$(ProjectDir)..\Bin\"
+COPY /Y "$(OutDir)*.exe" "$(ProjectDir)..\Bin\"</Command>
     </PostBuildEvent>
+    <FxCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)XSDX\</AdditionalIncludeDirectories>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -107,16 +111,20 @@ COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)XSDX\;$(DXUT_DIR)Optional;$(DXUT_DIR)Core</AdditionalIncludeDirectories>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(DXUT_DIR)Optional\Bin\x64\Debug;$(DXUT_DIR)Core\Bin\x64\Debug</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y "$(OutDir)*.cso" "$(SolutionDir)Bin"
-COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
+      <Command>COPY /Y "$(OutDir)*.cso" "$(ProjectDir)..\Bin\"
+COPY /Y "$(OutDir)*.exe" "$(ProjectDir)..\Bin\"</Command>
     </PostBuildEvent>
+    <FxCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)XSDX\</AdditionalIncludeDirectories>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -127,7 +135,8 @@ COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)XSDX\;$(DXUT_DIR)Optional;$(DXUT_DIR)Core</AdditionalIncludeDirectories>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -136,9 +145,12 @@ COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
       <AdditionalLibraryDirectories>$(DXUT_DIR)Optional\Bin\Win32\Release;$(DXUT_DIR)Core\Bin\Win32\Release</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y "$(OutDir)*.cso" "$(SolutionDir)Bin"
-COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
+      <Command>COPY /Y "$(OutDir)*.cso" "$(ProjectDir)..\Bin\"
+COPY /Y "$(OutDir)*.exe" "$(ProjectDir)..\Bin\"</Command>
     </PostBuildEvent>
+    <FxCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)XSDX\</AdditionalIncludeDirectories>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -149,7 +161,8 @@ COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)XSDX\;$(DXUT_DIR)Optional;$(DXUT_DIR)Core</AdditionalIncludeDirectories>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -158,9 +171,12 @@ COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
       <AdditionalLibraryDirectories>$(DXUT_DIR)Optional\Bin\x64\Release;$(DXUT_DIR)Core\Bin\x64\Release</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y "$(OutDir)*.cso" "$(SolutionDir)Bin"
-COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
+      <Command>COPY /Y "$(OutDir)*.cso" "$(ProjectDir)..\Bin\"
+COPY /Y "$(OutDir)*.exe" "$(ProjectDir)..\Bin\"</Command>
     </PostBuildEvent>
+    <FxCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)XSDX\</AdditionalIncludeDirectories>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -171,7 +187,7 @@ COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Silhouette.h" />
     <ClInclude Include="SilhouetteX.h" />
-    <ClInclude Include="pch.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="XSDX\XSDXBuffer.h" />
     <ClInclude Include="XSDX\XSDXShader.h" />
@@ -184,15 +200,24 @@ COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="Silhouette.cpp" />
     <ClCompile Include="SilhouetteX.cpp" />
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="XSDX\XSDXBuffer.cpp" />
-    <ClCompile Include="XSDX\XSDXShader.cpp" />
-    <ClCompile Include="XSDX\XSDXState.cpp" />
+    <ClCompile Include="XSDX\XSDXBuffer.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">StdAfx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">StdAfx.h</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="XSDX\XSDXShader.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">StdAfx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">StdAfx.h</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="XSDX\XSDXState.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">StdAfx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">StdAfx.h</ForcedIncludeFiles>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SilhouetteX.rc" />
@@ -257,6 +282,10 @@ COPY /Y "$(OutDir)*.exe" "$(SolutionDir)Bin"</Command>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="PSSimple.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

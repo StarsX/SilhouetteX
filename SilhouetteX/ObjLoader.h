@@ -1,3 +1,7 @@
+//--------------------------------------------------------------------------------------
+// By Stars XU Tianchen
+//--------------------------------------------------------------------------------------
+
 #pragma once
 
 class ObjLoader
@@ -28,7 +32,7 @@ public:
 	ObjLoader();
 	virtual ~ObjLoader();
 
-	bool Import(const char *pszFilename);
+	bool Import(const char *pszFilename, const bool bRecomputeNorm = true, const bool bNeedBound = true);
 
 	const uint32_t GetNumVertices() const;
 	const uint32_t GetNumIndices() const;
@@ -36,14 +40,21 @@ public:
 	const uint8_t *GetVertices() const;
 	const uint32_t *GetIndices() const;
 
+	const float3& GetCenter() const;
+	const float GetRadius() const;
+
 protected:
 	void importGeometryFirstPass(FILE *pFile);
 	void importGeometrySecondPass(FILE *pFile);
 	void loadIndex(FILE *pFile, uint32_t &uNumTri);
 	void computeNormal();
+	void computeBound();
 
 	vVertex		m_vVertices;
 	vuint		m_vIndices;
 	vuint		m_vTIndices;
 	vuint		m_vNIndices;
+
+	float3		m_vCenter;
+	float		m_fRadius;
 };

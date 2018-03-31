@@ -2,7 +2,6 @@
 // By Stars XU Tianchen
 //--------------------------------------------------------------------------------------
 
-#include "pch.h"
 #include "SilhouetteX.h"
 
 using namespace std;
@@ -146,9 +145,9 @@ void InitApp()
 
 	auto iX = -160;
 	auto iY = -670;
-	g_SampleUI.AddRadioButton(IDC_RENDER_GS, 0u, L"Simple silhouette by geometry shader", iX, iY += 26, 150, 22);
-	g_SampleUI.AddRadioButton(IDC_RENDER_TESS, 0u, L"Simple silhouette by tessellation", iX, iY += 26, 150, 22);
-	g_SampleUI.AddRadioButton(IDC_RENDER_STYLIZED, 0u, L"Stylized silhouette by tessellation", iX, iY += 26, 150, 22);
+	g_SampleUI.AddRadioButton(IDC_RENDER_GS, 0, L"Simple silhouette by geometry shader", iX, iY += 26, 150, 22);
+	g_SampleUI.AddRadioButton(IDC_RENDER_TESS, 0, L"Simple silhouette by tessellation", iX, iY += 26, 150, 22);
+	g_SampleUI.AddRadioButton(IDC_RENDER_STYLIZED, 0, L"Stylized silhouette by tessellation", iX, iY += 26, 150, 22);
 	g_SampleUI.GetRadioButton(IDC_RENDER_GS)->SetChecked(true);
 	g_SampleUI.GetRadioButton(IDC_RENDER_GS)->SetTextColor(0);
 	g_SampleUI.GetRadioButton(IDC_RENDER_TESS)->SetTextColor(0);
@@ -326,7 +325,7 @@ HRESULT CALLBACK OnD3D11CreateDevice(ID3D11Device* pd3dDevice, const DXGI_SURFAC
 	// Once the mesh is loaded, the object is ready to be rendered.
 	createShaderTask.then([pd3dDevice]()
 	{
-		Silhouette::CreateVertexLayout(pd3dDevice, Silhouette::GetVertexLayout(), g_pShader, 0u);
+		Silhouette::CreateVertexLayout(pd3dDevice, Silhouette::GetVertexLayout(), g_pShader, 0);
 		g_pShader->ReleaseShaderBuffers();
 
 		// View
@@ -358,11 +357,6 @@ HRESULT CALLBACK OnD3D11ResizedSwapChain(ID3D11Device* pd3dDevice, IDXGISwapChai
 	g_Camera.SetButtonMasks(MOUSE_MIDDLE_BUTTON, MOUSE_WHEEL, MOUSE_LEFT_BUTTON);
 
 	// Initialize window size dependent resources
-	// Viewport clipping
-	auto uVpNum = 1u;
-	D3D11_VIEWPORT viewport;
-	DXUTGetD3D11DeviceContext()->RSGetViewports(&uVpNum, &viewport);
-
 	if (g_pSilhouette) g_pSilhouette->Init(pBackBufferSurfaceDesc->Width, pBackBufferSurfaceDesc->Height);
 
 	g_pDsBackBuffer = make_unique<DepthStencil>(pd3dDevice);
@@ -389,8 +383,8 @@ void CALLBACK OnD3D11FrameRender(ID3D11Device* pd3dDevice, ID3D11DeviceContext* 
 	LPDXRenderTargetView pRTVs[] = { DXUTGetD3D11RenderTargetView() };
 	LPDXDepthStencilView pDSV = g_pDsBackBuffer->GetDSV().Get();
 	pd3dImmediateContext->ClearRenderTargetView(pRTVs[0], Colors::Wheat);
-	pd3dImmediateContext->ClearDepthStencilView(pDSV, D3D11_CLEAR_DEPTH, 1.0f, 0u);
-	pd3dImmediateContext->OMSetRenderTargets(1u, pRTVs, pDSV);
+	pd3dImmediateContext->ClearDepthStencilView(pDSV, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	pd3dImmediateContext->OMSetRenderTargets(1, pRTVs, pDSV);
 
 	// Prepare the constant buffer to send it to the graphics device.
 	// Get the projection & view matrix from the camera class
@@ -412,7 +406,7 @@ void CALLBACK OnD3D11FrameRender(ID3D11Device* pd3dDevice, ID3D11DeviceContext* 
 		g_pSilhouette->Render();
 	}
 
-	//pd3dImmediateContext->OMSetRenderTargets(1u, pRTVs, pDSV);
+	//pd3dImmediateContext->OMSetRenderTargets(1, pRTVs, pDSV);
 
 	DXUT_BeginPerfEvent(DXUT_PERFEVENTCOLOR, L"HUD / Stats");
 	g_SampleUI.OnRender(fElapsedTime);

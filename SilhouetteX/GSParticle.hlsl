@@ -24,7 +24,7 @@ void main(line DSOut input[2], inout TriangleStream<GSOut> output)
 	{
 		element.Tex = float2(i & 1, i >> 1);
 		const float2 vOffset = element.Tex * float2(2.0, -2.0) + float2(-1.0, 1.0);
-		element.Pos.xy = input[0].Pos.xy + vOffset * 0.2;
+		element.Pos.xy = input[0].Pos.xy + vOffset * 0.25;
 
 		output.Append(element);
 	}

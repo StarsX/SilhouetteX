@@ -7,5 +7,9 @@ struct PSIn
 
 float4 main(PSIn input) : SV_TARGET
 {
-	return input.Color;
+	const float2 vr = (input.Tex - 0.5) * 2.0;
+	const float fGauss = exp(-4.0 * dot(vr, vr));
+	const float fAlpha = fGauss * input.Color.w;
+
+	return float4(input.Color.xyz, fAlpha);
 }

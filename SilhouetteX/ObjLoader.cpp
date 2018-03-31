@@ -1,4 +1,7 @@
-#include "pch.h"
+//--------------------------------------------------------------------------------------
+// By Stars XU Tianchen
+//--------------------------------------------------------------------------------------
+
 #include "ObjLoader.h"
 
 #define VEC_ALLOC(v, i)			{ v.resize(i); v.shrink_to_fit(); }
@@ -13,7 +16,7 @@ ObjLoader::~ObjLoader()
 {
 }
 
-bool ObjLoader::Import(const char *pszFilename)
+bool ObjLoader::Import(const char *pszFilename, const bool bRecomputeNorm, const bool bNeedBound)
 {
 	FILE *pFile;
 	fopen_s(&pFile, pszFilename, "r");
@@ -27,7 +30,8 @@ bool ObjLoader::Import(const char *pszFilename)
 	fclose(pFile);
 
 	// Perform post import tasks.
-	computeNormal();
+	if (bRecomputeNorm) computeNormal();
+	if (bNeedBound) computeBound();
 
 	return true;
 }
@@ -55,6 +59,16 @@ const uint8_t *ObjLoader::GetVertices() const
 const uint32_t *ObjLoader::GetIndices() const
 {
 	return m_vIndices.data();
+}
+
+const ObjLoader::float3 &ObjLoader::GetCenter() const
+{
+	return m_vCenter;
+}
+
+const float ObjLoader::GetRadius() const
+{
+	return m_fRadius;
 }
 
 void ObjLoader::importGeometryFirstPass(FILE *pFile)
@@ -138,7 +152,7 @@ void ObjLoader::importGeometryFirstPass(FILE *pFile)
 	}
 
 	// Allocate memory for the OBJ model data.
-	const auto uNumIdx = uNumTri * 3u;
+	const auto uNumIdx = uNumTri * 3;
 	VEC_ALLOC(m_vVertices, uNumVert);
 	VEC_ALLOC(m_vIndices, uNumIdx);
 	if (bHasTexcoord) VEC_ALLOC(m_vTIndices, uNumIdx);
@@ -188,7 +202,7 @@ void ObjLoader::loadIndex(FILE *pFile, uint32_t &uNumTri)
 
 	const auto uNumVert = uint32_t(m_vVertices.size());
 
-	for (auto i = 0ui8; i < 3ui8; ++i)
+	for (auto i = 0ui8; i < 3u; ++i)
 	{
 		fscanf_s(pFile, "%u", &v[i]);
 		v[i] = (v[i] < 0) ? v[i] + uNumVert - 1 : v[i] - 1;
@@ -300,4 +314,39 @@ void ObjLoader::computeNormal()
 		pn->y /= l;
 		pn->z /= l;
 	}
+}
+
+void ObjLoader::computeBound()
+{
+	float xMax, xMin, yMax, yMin, zMax, zMin;
+	xMax = xMin = m_vVertices[0].m_vPosition.x;
+	yMax = yMin = m_vVertices[0].m_vPosition.y;
+	zMax = zMin = m_vVertices[0].m_vPosition.z;
+
+	auto x = 0.0f, y = 0.0f, z = 0.0f;
+
+	for (auto i = 1u; i < m_vVertices.size(); ++i) {
+		x = m_vVertices[i].m_vPosition.x;
+		y = m_vVertices[i].m_vPosition.y;
+		z = m_vVertices[i].m_vPosition.z;
+
+		if (x < xMin) xMin = x;
+		else if (x > xMax) xMax = x;
+
+		if (y < yMin) yMin = y;
+		else if (y > yMax) yMax = y;
+
+		if (z < zMin) zMin = z;
+		else if (z > zMax) zMax = z;
+	}
+
+	m_vCenter.x = (xMin + xMax) / 2.0f;
+	m_vCenter.y = (yMin + yMax) / 2.0f;
+	m_vCenter.z = (zMin + zMax) / 2.0f;
+
+	const auto fWidth = xMax - xMin;
+	const auto fHeight = yMax - yMin;
+	const auto fLength = zMax - zMin;
+
+	m_fRadius = max(max(fWidth, fHeight), fLength) * 0.5f;
 }

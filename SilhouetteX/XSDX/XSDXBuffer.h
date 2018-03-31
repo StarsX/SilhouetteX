@@ -40,18 +40,18 @@ namespace XSDX
 		void Create(const bool bUAV, const bool bDyn,
 			const uint32_t uWidth, const uint32_t uHeight,
 			const uint32_t uArraySize, const DXGI_FORMAT eFormat,
-			const uint8_t uMips = 1ui8,
+			const uint8_t uMips = 1,
 			const lpcvoid pInitialData = nullptr,
 			const uint8_t uStride = sizeof(float));
 		void Create(const bool bUAV, const bool bDyn,
 			const uint32_t uWidth, const uint32_t uHeight,
-			const DXGI_FORMAT eFormat, const uint8_t uMips = 1ui8,
+			const DXGI_FORMAT eFormat, const uint8_t uMips = 1,
 			const lpcvoid pInitialData = nullptr,
 			const uint8_t uStride = sizeof(float));
-		void CreateSRV(const uint32_t uArraySize, const uint8_t uSamples = 1ui8);
+		void CreateSRV(const uint32_t uArraySize, const uint8_t uSamples = 1);
 
 		const CPDXTexture2D				&GetBuffer() const;
-		const CPDXUnorderedAccessView	&GetUAV(const uint8_t i = 0ui8) const;
+		const CPDXUnorderedAccessView	&GetUAV(const uint8_t i = 0) const;
 	protected:
 		CPDXTexture2D					m_pTexture;
 		vCPDXUAV						m_vpUAVs;
@@ -69,18 +69,17 @@ namespace XSDX
 	public:
 		RenderTarget(const CPDXDevice &pDXDevice);
 		void Create(const uint32_t uWidth, const uint32_t uHeight, const uint32_t uArraySize,
-			const DXGI_FORMAT eFormat, const uint8_t uSamples = 1ui8, const uint8_t uMips = 1ui8);
+			const DXGI_FORMAT eFormat, const uint8_t uSamples = 1, const uint8_t uMips = 1);
 		void Create(const uint32_t uWidth, const uint32_t uHeight, const DXGI_FORMAT eFormat,
-			const uint8_t uSamples = 1ui8, const uint8_t uMips = 1ui8);
+			const uint8_t uSamples = 1, const uint8_t uMips = 1);
 		void CreateArray(const uint32_t uWidth, const uint32_t uHeight, const uint32_t uArraySize,
-			const DXGI_FORMAT eFormat, const uint8_t uSamples = 1ui8, const uint8_t uMips = 1ui8);
+			const DXGI_FORMAT eFormat, const uint8_t uSamples = 1, const uint8_t uMips = 1);
 		void Populate(const CPDXShaderResourceView &pSRVSrc, const spShader &pShader,
-			const uint8_t uSRVSlot = 0ui8, const uint8_t uSlice = 0ui8, const uint8_t uMip = 0ui8);
+			const uint8_t uSRVSlot = 0, const uint8_t uSlice = 0, const uint8_t uMip = 0);
 
-		const CPDXRenderTargetView		&GetRTV(const uint8_t uSlice = 0ui8,
-											const uint8_t uMip = 0ui8) const;
+		const CPDXRenderTargetView		&GetRTV(const uint8_t uSlice = 0, const uint8_t uMip = 0) const;
 		const uint8_t					GetArraySize() const;
-		const uint8_t					GetNumMips(const uint8_t uSlice = 0ui8) const;
+		const uint8_t					GetNumMips(const uint8_t uSlice = 0) const;
 	protected:
 		void create(const uint32_t uWidth, const uint32_t uHeight, const uint32_t uArraySize,
 			const DXGI_FORMAT eFormat, const uint8_t uSamples, const uint8_t uMips);
@@ -101,13 +100,13 @@ namespace XSDX
 		DepthStencil(const CPDXDevice &pDXDevice);
 		void Create(const uint32_t uWidth, const uint32_t uHeight, const uint32_t uArraySize,
 			const bool bRead, DXGI_FORMAT eFormat = DXGI_FORMAT_D24_UNORM_S8_UINT,
-			const uint8_t uSamples = 1ui8, const uint8_t uMips = 1ui8);
+			const uint8_t uSamples = 1, const uint8_t uMips = 1);
 		void Create(const uint32_t uWidth, const uint32_t uHeight, const bool bRead,
 			DXGI_FORMAT eFormat = DXGI_FORMAT_D24_UNORM_S8_UINT,
-			const uint8_t uSamples = 1ui8, const uint8_t uMips = 1ui8);
+			const uint8_t uSamples = 1, const uint8_t uMips = 1);
 
-		const CPDXDepthStencilView		&GetDSV(const uint8_t uMip = 0ui8) const;
-		const CPDXDepthStencilView		&GetDSVRO(const uint8_t uMip = 0ui8) const;
+		const CPDXDepthStencilView		&GetDSV(const uint8_t uMip = 0) const;
+		const CPDXDepthStencilView		&GetDSVRO(const uint8_t uMip = 0) const;
 		const uint8_t					GetNumMips() const;
 	protected:
 		vCPDXDSV						m_vpDSVs;
@@ -127,12 +126,12 @@ namespace XSDX
 		Texture3D(const CPDXDevice &pDXDevice);
 		void Create(const bool bUAV, const bool bDyn,
 			const uint32_t uWidth, const uint32_t uHeight, const uint32_t uDepth,
-			const DXGI_FORMAT eFormat, const uint8_t uMips = 1ui8,
+			const DXGI_FORMAT eFormat, const uint8_t uMips = 1,
 			const lpcvoid pInitialData = nullptr,
 			const uint8_t uStride = sizeof(float));
 
 		const CPDXTexture3D				&GetBuffer() const;
-		const CPDXUnorderedAccessView	&GetUAV(const uint8_t i = 0ui8) const;
+		const CPDXUnorderedAccessView	&GetUAV(const uint8_t i = 0) const;
 	protected:
 		CPDXTexture3D					m_pTexture;
 		vCPDXUAV						m_vpUAVs;
@@ -173,10 +172,10 @@ namespace XSDX
 	{
 	public:
 		TypedBuffer(const CPDXDevice &pDXDevice);
-		void Create(const bool bUAV, const bool bDyn, const uint32_t uNumElement,
+		void Create(const bool bUAV, const bool bDyn, const uint32_t uNumElements,
 			const uint32_t uStride, const DXGI_FORMAT eFormat,
-			const lpcvoid pInitialData = nullptr, const uint8_t uUAVFlags = 0ui8);
-		void CreateSRV(const uint32_t uNumElement, const DXGI_FORMAT eFormat);
+			const lpcvoid pInitialData = nullptr, const uint8_t uUAVFlags = 0);
+		void CreateSRV(const uint32_t uNumElements, const DXGI_FORMAT eFormat);
 	};
 
 	using upTypedBuffer = std::unique_ptr<TypedBuffer>;
@@ -191,10 +190,10 @@ namespace XSDX
 	public:
 		StructuredBuffer(const CPDXDevice &pDXDevice);
 		void Create(const bool bUAV, const bool bDyn,
-			const uint32_t uNumElement, const uint32_t uStride,
+			const uint32_t uNumElements, const uint32_t uStride,
 			const lpcvoid pInitialData = nullptr,
-			const uint8_t uUAVFlags = 0ui8);
-		void CreateSRV(const uint32_t uNumElement);
+			const uint8_t uUAVFlags = 0);
+		void CreateSRV(const uint32_t uNumElements);
 	};
 
 	using upStructuredBuffer = std::unique_ptr<StructuredBuffer>;

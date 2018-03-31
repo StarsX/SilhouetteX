@@ -2,7 +2,6 @@
 // By Stars XU Tianchen
 //--------------------------------------------------------------------------------------
 
-#include "pch.h"
 #include "XSDXState.h"
 
 using namespace DX;
@@ -72,7 +71,7 @@ void State::CreateSamplerState(CPDXSamplerState &pState, const D3D11_FILTER eFil
 	desc.AddressV = eAddressMode;
 	desc.AddressW = eAddressMode;
 
-	desc.MaxAnisotropy = (m_pDXDevice->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) ? 16u : 2u;
+	desc.MaxAnisotropy = (m_pDXDevice->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) ? 16 : 2;
 
 	desc.MaxLOD = D3D11_FLOAT32_MAX;
 	desc.ComparisonFunc = eCmpFunc;
@@ -117,6 +116,35 @@ const CPDXBlendState &State::NonPremultiplied()
 	return m_pNonPremultiplied;
 }
 
+const CPDXBlendState &State::NonPremultiplied0()
+{
+	if (!m_pNonPremultiplied0)
+	{
+		auto desc = D3D11_BLEND_DESC
+		{
+			false,								// AlphaToCoverageEnable
+			true,								// IndependentBlendEnable
+			// Non-premultiplied alpha blend RTV0 only
+			D3D11_RENDER_TARGET_BLEND_DESC
+			{
+				true,							// BlendEnable
+				D3D11_BLEND_SRC_ALPHA,			// SrcBlend
+				D3D11_BLEND_INV_SRC_ALPHA,		// DestBlend
+				D3D11_BLEND_OP_ADD,				// BlendOp
+				D3D11_BLEND_SRC_ALPHA,			// SrcBlendAlpha
+				D3D11_BLEND_INV_SRC_ALPHA,		// DestBlendAlpha
+				D3D11_BLEND_OP_ADD,				// BlendOpAlpha
+				D3D11_COLOR_WRITE_ENABLE_ALL	// RenderTargetWriteMask
+			}
+		};
+		desc.RenderTarget[1].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		ThrowIfFailed(m_pDXDevice->CreateBlendState(&desc, &m_pNonPremultiplied0));
+	}
+
+	return m_pNonPremultiplied0;
+}
+
 const CPDXBlendState &State::AlphaToCoverage()
 {
 	if (!m_pAlphaToCoverage)
@@ -137,10 +165,12 @@ const CPDXBlendState &State::AutoAlphaBlend()
 {
 	if (!m_pAutoAlphaBlend)
 	{
-		const auto desc = D3D11_BLEND_DESC {
+		const auto desc = D3D11_BLEND_DESC
+		{
 			false,								// AlphaToCoverageEnable
 			false,								// IndependentBlendEnable
-			D3D11_RENDER_TARGET_BLEND_DESC {
+			D3D11_RENDER_TARGET_BLEND_DESC
+			{
 				true,							// BlendEnable
 				D3D11_BLEND_SRC_ALPHA,			// SrcBlend
 				D3D11_BLEND_INV_SRC_ALPHA,		// DestBlend
@@ -189,7 +219,8 @@ const CPDXBlendState &State::WeightBlend()
 {
 	if (!m_pWeightBlend)
 	{
-		auto desc = D3D11_BLEND_DESC {
+		auto desc = D3D11_BLEND_DESC
+		{
 			false,								// AlphaToCoverageEnable
 			true,								// IndependentBlendEnable
 			// Accumulation

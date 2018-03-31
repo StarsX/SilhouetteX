@@ -144,6 +144,6 @@ namespace XSDX
 #ifndef	BASIC_SHADER_SLOTS
 #define	BASIC_SHADER_SLOTS
 	// Other constant slots
-	static const auto		g_uCBBound		(3ui8);
+	static const uint8_t	g_uCBBound		(3);
 #endif
 }
