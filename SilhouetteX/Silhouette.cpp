@@ -80,7 +80,7 @@ void Silhouette::CreateVertexLayout(const CPDXDevice &pDXDevice, CPDXInputLayout
 		{ "NORMAL",		0, DXGI_FORMAT_R32G32B32_FLOAT,	0, offset,	D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
-	ThrowIfFailed(pDXDevice->CreateInputLayout(vLayout.data(), uint32_t(vLayout.size()),
+	ThrowIfFailed(pDXDevice->CreateInputLayout(vLayout.data(), static_cast<uint32_t>(vLayout.size()),
 		pShader->GetVertexShaderBuffer(uVS)->GetBufferPointer(),
 		pShader->GetVertexShaderBuffer(uVS)->GetBufferSize(),
 		&pVertexLayout));
