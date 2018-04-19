@@ -8,7 +8,6 @@
 using namespace DirectX;
 using namespace DX;
 using namespace std;
-//using namespace ShaderIDs;
 using namespace XSDX;
 
 CPDXInputLayout	Silhouette::m_pVertexLayout;
@@ -101,7 +100,7 @@ void Silhouette::createVB(const uint32_t uNumVert, const uint32_t uStride, const
 	ThrowIfFailed(m_pDXDevice->CreateBuffer(&desc, &ssd, &m_pVB));
 }
 
-void Silhouette::createIB(const uint32_t uNumIndices, const uint32_t * pData)
+void Silhouette::createIB(const uint32_t uNumIndices, const uint32_t *pData)
 {
 	m_uNumIndices = uNumIndices;
 	const auto desc = CD3D11_BUFFER_DESC(sizeof(uint32_t) * uNumIndices, D3D11_BIND_INDEX_BUFFER);
