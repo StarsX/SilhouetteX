@@ -23,7 +23,7 @@
     <ProjectGuid>{C5A2D639-4102-4E7F-BD93-BA4962AF7714}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SilhouetteX</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

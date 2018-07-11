@@ -121,8 +121,8 @@ void Silhouette::createCBs()
 void Silhouette::renderDepth()
 {
 	const auto uOffset = 0u;
-	const LPDXBuffer cbs[] = { m_pCBMatrices.Get(), m_pCBPerFrame.Get() };
-	m_pDXContext->VSSetConstantBuffers(0, 2, cbs);
+	const auto pCBs = { m_pCBMatrices.Get(), m_pCBPerFrame.Get() };
+	m_pDXContext->VSSetConstantBuffers(0, static_cast<uint32_t>(pCBs.size()), pCBs.begin());
 
 	m_pDXContext->IASetInputLayout(m_pVertexLayout.Get());
 	m_pDXContext->IASetVertexBuffers(0, 1, m_pVB.GetAddressOf(), &m_uVertexStride, &uOffset);
@@ -138,8 +138,8 @@ void Silhouette::renderDepth()
 void Silhouette::renderGS()
 {
 	const auto uOffset = 0u;
-	const LPDXBuffer cbs[] = { m_pCBMatrices.Get(), m_pCBPerFrame.Get() };
-	m_pDXContext->VSSetConstantBuffers(0, 2, cbs);
+	const auto pCBs = { m_pCBMatrices.Get(), m_pCBPerFrame.Get() };
+	m_pDXContext->VSSetConstantBuffers(0, static_cast<uint32_t>(pCBs.size()), pCBs.begin());
 
 	m_pDXContext->IASetInputLayout(m_pVertexLayout.Get());
 	m_pDXContext->IASetVertexBuffers(0, 1, m_pVB.GetAddressOf(), &m_uVertexStride, &uOffset);
@@ -158,8 +158,8 @@ void Silhouette::renderGS()
 void Silhouette::renderTess()
 {
 	const auto uOffset = 0u;
-	const LPDXBuffer cbs[] = { m_pCBMatrices.Get(), m_pCBPerFrame.Get() };
-	m_pDXContext->VSSetConstantBuffers(0, 2, cbs);
+	const auto pCBs = { m_pCBMatrices.Get(), m_pCBPerFrame.Get() };
+	m_pDXContext->VSSetConstantBuffers(0, static_cast<uint32_t>(pCBs.size()), pCBs.begin());
 
 	m_pDXContext->IASetInputLayout(m_pVertexLayout.Get());
 	m_pDXContext->IASetVertexBuffers(0, 1, m_pVB.GetAddressOf(), &m_uVertexStride, &uOffset);
@@ -180,8 +180,8 @@ void Silhouette::renderTess()
 void Silhouette::renderStylized()
 {
 	const auto uOffset = 0u;
-	const LPDXBuffer cbs[] = { m_pCBMatrices.Get(), m_pCBPerFrame.Get() };
-	m_pDXContext->VSSetConstantBuffers(0, 2, cbs);
+	const auto pCBs = { m_pCBMatrices.Get(), m_pCBPerFrame.Get() };
+	m_pDXContext->VSSetConstantBuffers(0, static_cast<uint32_t>(pCBs.size()), pCBs.begin());
 
 	m_pDXContext->IASetInputLayout(m_pVertexLayout.Get());
 	m_pDXContext->IASetVertexBuffers(0, 1, m_pVB.GetAddressOf(), &m_uVertexStride, &uOffset);

@@ -380,11 +380,11 @@ void CALLBACK OnD3D11FrameRender(ID3D11Device* pd3dDevice, ID3D11DeviceContext* 
 	if (!g_bLoadingComplete) return;
 
 	// Set render targets to the screen.
-	LPDXRenderTargetView pRTVs[] = { DXUTGetD3D11RenderTargetView() };
-	LPDXDepthStencilView pDSV = g_pDsBackBuffer->GetDSV().Get();
-	pd3dImmediateContext->ClearRenderTargetView(pRTVs[0], Colors::Wheat);
+	const auto pRTV = DXUTGetD3D11RenderTargetView();
+	const auto pDSV = g_pDsBackBuffer->GetDSV().Get();
+	pd3dImmediateContext->ClearRenderTargetView(pRTV, Colors::Wheat);
 	pd3dImmediateContext->ClearDepthStencilView(pDSV, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	pd3dImmediateContext->OMSetRenderTargets(1, pRTVs, pDSV);
+	pd3dImmediateContext->OMSetRenderTargets(1, &pRTV, pDSV);
 
 	// Prepare the constant buffer to send it to the graphics device.
 	// Get the projection & view matrix from the camera class
@@ -406,7 +406,7 @@ void CALLBACK OnD3D11FrameRender(ID3D11Device* pd3dDevice, ID3D11DeviceContext* 
 		g_pSilhouette->Render();
 	}
 
-	//pd3dImmediateContext->OMSetRenderTargets(1, pRTVs, pDSV);
+	//pd3dImmediateContext->OMSetRenderTargets(1, &pRTV, pDSV);
 
 	DXUT_BeginPerfEvent(DXUT_PERFEVENTCOLOR, L"HUD / Stats");
 	g_SampleUI.OnRender(fElapsedTime);
